@@ -1,0 +1,13 @@
+;; shadow-cljs configuration
+{:source-paths ["src"]
+
+ :dependencies [[com.taoensso/timbre "5.1.2"] 
+                [bidi "2.1.6"]
+                [macchiato/core "0.2.21"]]
+
+
+ :builds {:app {:target :node-library
+                :exports {:server api.core/server}
+                :output-dir "target"
+                :output-to "target/main.js"
+                :compiler-options {:optimizations :simple}}}}
