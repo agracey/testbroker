@@ -1,5 +1,9 @@
 import express from 'express'
 
+import instances from './instances.mjs'
+import bindings from './bindings.mjs'
+import last_ops from './last_operations.mjs'
+
 const v2 = express.Router()
 const catalog = express.Router()
 const service_instances = express.Router()
@@ -30,18 +34,12 @@ v2.use('/catalog',catalog)
 
 const not_implemented = (req, res)=>{req.send({})}
 
-service_instances.put('/:id', not_implemented)
-service_instances.get('/:id', not_implemented)
-service_instances.delete('/:id', not_implemented)
+service_instances.use('/:instance_id', instances)
 
+service_instances.use('/:instance_id/service_bindings/:binding_id', bindings)
 
-
-service_instances.put('/:id/service_bindings/:binding_id', not_implemented)
-service_instances.get('/:id/service_bindings/:binding_id', not_implemented)
-service_instances.delete('/:id/service_bindings/:binding_id', not_implemented)
-
-service_instances.get('/:id/service_bindings/:binding_id/last_operation', not_implemented)
-service_instances.get('/:id/last_operation', not_implemented)
+service_instances.use('/:instance_id/service_bindings/:binding_id/last_operation', last_ops)
+service_instances.use('/:instance_id/last_operation', last_ops)
 
 v2.use('/service_instances',service_instances)
 
