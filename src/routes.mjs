@@ -1,7 +1,7 @@
 import express from 'express'
 
 import instances from './instances.mjs'
-import bindings from './bindings.mjs'
+import bindings from './binding.mjs'
 import last_ops from './last_operations.mjs'
 
 const v2 = express.Router()
@@ -11,7 +11,7 @@ const service_instances = express.Router()
 
 catalog.get('/',(req,res)=>{
   const c = {services:[{
-    name: 'Custom Service',
+    name: 'custom',
     id: 'custom_service_mock_broker',
     description: 'Custom data mounted in the same way service data is',
     tags: [],
@@ -21,7 +21,7 @@ catalog.get('/',(req,res)=>{
     allow_context_updates: false,
     plans:[
       {
-        name: 'Loopback',
+        name: 'loopback',
         id: 'loopback',
         description: 'Binds the data passed in while instantiating the service instance',
       }
