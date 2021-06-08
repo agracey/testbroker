@@ -3,36 +3,12 @@ import express from 'express'
 import instances from './instances.mjs'
 import bindings from './binding.mjs'
 import last_ops from './last_operations.mjs'
+import catalog from './catalog.mjs'
 
 const v2 = express.Router()
-const catalog = express.Router()
 const service_instances = express.Router()
 
-
-catalog.get('/',(req,res)=>{
-  const c = {services:[{
-    name: 'custom',
-    id: 'custom_service_mock_broker',
-    description: 'Custom data mounted in the same way service data is',
-    tags: [],
-    bindable: true,
-    instances_retrievable: true,
-    binding_retrievable: true,
-    allow_context_updates: false,
-    plans:[
-      {
-        name: 'loopback',
-        id: 'loopback',
-        description: 'Binds the data passed in while instantiating the service instance',
-      }
-    ]
-  }]}
-  res.send(c)
-})
-
 v2.use('/catalog',catalog)
-
-const not_implemented = (req, res)=>{req.send({})}
 
 service_instances.use('/:instance_id', instances)
 
